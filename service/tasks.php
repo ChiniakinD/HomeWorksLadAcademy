@@ -1,168 +1,145 @@
 <?php
-
-    // Задача 1. Четное
-    function odd($number): int
+    // Задача 1. Артикул
+    function vendor_code($number): string
     {
-        return !($number % 2);
+        return sprintf('%06d', $number);
     }
 
-    // Задача 2. Ход ладьи
-    function rook($position1, $position2): bool
+    //Задача 2. Часы
+    function convert_time($seconds): string
     {
-        if (iconv_strlen($position1) != 2 || iconv_strlen($position2) != 2) {
-            throw new RuntimeException("incorrect value of letters");
+        $hours = floor($seconds / 3600);
+        $minutes = ($seconds - $hours * 3600) / 60;
+        $seconds1 = $seconds % 60;
+        return sprintf("Прошло %d секунд с начала суток, сейчас время %02d:%02d:%02d", $seconds, $hours, $minutes, $seconds1);
+    }
+
+    // Задача 3. ФИО
+    function convert_full_name($full_name): string
+    {
+        $full_name = explode(' ', $full_name);
+        return $full_name[0] . ' ' . mb_substr($full_name[1], 0, 1) . ' ' . mb_substr($full_name[2], 0, 1);
+    }
+
+    // Задача 4. Короткий пароль
+    function check_password($password): string
+    {
+        if (strlen($password) < 8) {
+            return 'Слишком короткий пароль!';
         }
-        $array1 = str_split($position1);
-        $x1 = strtoupper($array1[0]);
-        $y1 = $array1[1];
-
-        $array2 = str_split($position2);
-        $x2 = strtoupper($array2[0]);
-        $y2 = $array2[1];
-
-        return $x1 === $x2 || $y1 === $y2;
+        return 'Пароль принят';
     }
 
-    // Задача 3. Ход короля
-    function king($position1, $position2): bool
+    // Задача 5. Пробел
+    function check_space($password): string
     {
-        if (iconv_strlen($position1) != 2 || iconv_strlen($position2) != 2) {
-            throw new RuntimeException("incorrect value of letters");
+        if (substr_count($password, ' ') != 0) {
+            return sprintf('Убери пробелы из пароля');
         }
-
-        $array1 = str_split($position1);
-        $x1 = ord(strtoupper($array1[0]));
-        $y1 = $array1[1];
-
-        $array2 = str_split($position2);
-        $x2 = ord(strtoupper($array2[0]));
-        $y2 = $array2[1];
-
-        return (abs($x2 - $x1) < 2 && (abs($y1 - $y2) < 2)) && (abs($x2 - $x1) + (abs($y1 - $y2))) <= 2;
+        return 'Пароль принят';
     }
 
-    // Задача 4. Гость
-    function guest($guest): void
+    // Задача 6. Ровно
+    function same_numbers_of_letters($word1, $word2): bool
     {
-        if ($guest) {
-            echo "Пожалуйста авторизуйтесь" . PHP_EOL;
+        $word1 = explode(' ', $word1);
+        $word2 = explode(' ', $word2);
+        $count1 = 0;
+        $count2 = 0;
+        foreach ($word1 as $symbol) {
+            if (ctype_alpha($symbol)) {
+                $count1++;
+            }
         }
-    }
-
-    // Задача 5. Модуль
-    function module($number): int
-    {
-        if ($number < 0) {
-            $number = $number * (-1);
+        foreach ($word2 as $symbol) {
+            if (ctype_alpha($symbol)) {
+                $count2++;
+            }
         }
-        return $number;
+        return $count1 === $count2;
     }
 
-    // Задача 6. Кто больше
-    function find_max($num1, $num2): int
+    // Задача 7. Подробнее
+    function more_details($text): string
     {
-        if ($num1 > $num2) {
-            return $num1;
+        if (mb_strlen($text) > 50) {
+            $text = substr($text, 0, 50) . "<a href=#> Подробнее</a>";
         }
-        return $num2;
+        return $text;
     }
 
-    // Задача 7. Черное и белое
-    function colour_of_chess_cell($cell): string
+    // Задача 8. Короче
+    function shorter($word): string
     {
-        if (iconv_strlen($cell) != 2) {
-            throw new RuntimeException("not correct value");
+        if (mb_strlen($word) > 7) {
+            $word = mb_substr($word, 0, 4) . '-' . mb_substr($word, -2, 2);
         }
-
-        $array = str_split($cell);
-        $x = strtoupper($array[0]);
-        $y = $array[1];
-        return (ord($x) + $y) % 2 === 0 ? "black" : "white";
+        return $word;
     }
 
-    // Задача 8. Все четные
-    function all_numbers_are_even($a, $b, $c): bool
+    // Задача 9. Коровы
+    function same_char($word, $char): int
     {
-        return $a % 2 === 0 && $b % 2 === 0 && $c % 2 === 0;
-    }
-
-    // Задача 9. Есть ли четные
-    function is_there_even_number($a, $b, $c): bool
-    {
-        return $a % 2 === 0 || $b % 2 === 0 || $c % 2 === 0;
-    }
-
-    // Задача 10. Выходной
-    function is_weekend($day): bool
-    {
-        return $day == 5 || $day === 6;
-    }
-
-    // Задача 11. Треугольник
-    function is_triangle_exist($a, $b, $c): bool
-    {
-        return ($a + $b) > $c && ($b + $c) > $a && ($c + $a) > $b;
-    }
-
-    // Задача 12. Високосный год
-    function is_leap_year($year): string
-    {
-        return ($year % 4 === 0 && $year % 100 != 0) || $year % 400 === 0 ? 'Yes' : 'No';
-    }
-
-    // Задача 13. Знак
-    function sign($number): int
-    {
-        return $number > 0 ? 1 : ($number < 0 ? -1 : 0);
-    }
-
-    // Задача 14. Длинная соломинка
-    function long_straw($a, $b, $c): int
-    {
-        return $a > $b && $a > $c ? $a : ($b > $a && $b > $c ? $b : $c);
-    }
-
-    // Задача 15. Сегодня холодно
-    function today_is_cold($t): string
-    {
-        if ($t < -30) {
-            return 'Оставайтесь дома!';
-        } elseif ($t < -10) {
-            return 'Сегодня холодно!';
-        } elseif ($t < 5) {
-            return 'Не холодно!';
-        } elseif ($t < 15) {
-            return 'Тепло!';
-        } elseif ($t < 25) {
-            return 'Очень тепло!';
-        } elseif ($t < 35) {
-            return 'Жарко!';
-        } else {
-            return 'Пекло';
+        $count = 0;
+        $word = mb_str_split($word);
+        foreach ($word as $letter) {
+            if ($letter === $char) {
+                $count++;
+            }
         }
+        return $count;
     }
 
-    // Задача 17. Шоколадка
-    function chocolate($height, $width, $pieces): bool
+    // Задача 10. Caps Lock
+    function check_capsLock($password, $true_password): string
     {
-        return $height === $pieces || $width === $pieces;
+        return $password === $true_password ? "Добро пожаловать!" : (($password === strtoupper($true_password)) ? "Возможно нажата клавиша CapsLock" : "Ошибка входа");
     }
 
-    // Задача 18. Выходной2
-    function weekend2($day, $order): int
+    // Задача 11. Регистронезависимые коровы
+    function same_char_without_register($word, $char): int
     {
-        if (($day + $order) % 7 == 5 || ($day + $order) % 7 == 6) {
-            $day = 0;
+        $word = mb_str_split(strtoupper($word));
+        $char = strtoupper($char);
+        $count = 0;
+        foreach ($word as $letter) {
+            if ($letter === $char) {
+                $count++;
+            }
         }
-        return $day;
+        return $count;
     }
 
+    // Задача 12. Курсив
+    function convert_italics_font($text, $word): string
+    {
+        $text = strtoupper($text);
+        $word = strtoupper($word);
+        return str_ireplace($word, "<i>$word</i>", $text);
+    }
 
+    // Задача 13. Тег
+    function tag($text): string
+    {
+        return str_replace(array('<p>', '</p>'), '', $text);
+    }
 
+    // Задача 14. Без комментариев
+    function remove_comments($text): string
+    {
+        return str_replace(substr($text, strpos($text, '/*'), strpos($text, '*/') + 2 - strpos($text, '/*')), '', $text);
+    }
 
-
-
-
-
+    // Задача 15. Поиск
+    function search($text, $word): string
+    {
+        $text = preg_split('/[.,;?!]/', $text);
+        foreach ($text as $sentence) {
+            if (stripos($sentence, $word) !== false) {
+                return str_ireplace($word, "<strong>$word</strong>", $sentence);
+            }
+        }
+        return "";
+    }
 
 
