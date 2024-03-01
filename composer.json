@@ -1,0 +1,15 @@
+{
+  "name": "chinia/homeworklad",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Чиня",
+      "email": "email@example.com"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^11.0"
+  }
+}

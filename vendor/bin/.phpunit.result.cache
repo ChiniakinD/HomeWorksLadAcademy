@@ -1,0 +1,1 @@
+{"version":1,"defects":{"MyTest::test_odd":7,"MyTest::test_square_of_rectangle":7,"MyTest::test_rook":7,"MyTest::test_king":7},"times":{"MyTest::test_odd":0.002,"MyTest::test_square_of_rectangle":0.005,"MyTest::test_rook":0.005,"MyTest::test_king":0}}

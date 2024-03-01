@@ -1,14 +1,19 @@
 <?php
     require "service/tasks.php";
-
-    convert_to_fahrenheit(50); // Проверка перевода в Фаренгейты
-    convert_rubles_to_kopecks(50,-7); // // Проверка перевода роблей в копейки
-    find_the_difference_in_time(5,4,1,2,4,2); // Разница времени у спортсменов
-    convert_speed(50); // Конвертация скорости в метры в секунды
-    information_about_triangle(4,5); // Площадь, периметр и гипотенуза треугольника
-    last_digit(-45); // Последняя цифра двузначного числа
-    first_digit(-45); // Первая цифра двузначного числа
-    tens_in_number(324); // Количество десятков в любом числе
-    kopecks(154); //Стоимость товара в рублях и копейках
-    purchases(4, 100, 51); // Стоимость покупок
-    square(10,5,6); //Количество квадратов в прямоугольнике
+    echo odd(13) . PHP_EOL; // Задача 1. Четное
+    var_dump(rook('g2', 'f2')) . PHP_EOL; // Задача 2. Ход ладьи
+    var_dump(king('a2', 'f2')) . PHP_EOL; // // Задача 3. Ход короля
+    guest(5) . PHP_EOL; // Задача 4. Гость
+    echo module(-18) . PHP_EOL; // Задача 5. Модуль
+    echo find_max(65,89) . PHP_EOL; // Задача 6. Кто больше
+    echo colour_of_chess_cell("h3") . PHP_EOL; // Задача 7. Черное и белое
+    var_dump(all_numbers_are_even(1121,232,4)) . PHP_EOL; // Задача 8. Все четные
+    var_dump(is_there_even_number(121,3,45)) . PHP_EOL; // Задача 9. Есть ли четные
+    var_dump(is_weekend(6)) . PHP_EOL; // Задача 10. Выходной
+    var_dump(is_triangle_exist(3,4,5)) . PHP_EOL; // Задача 11. Треугольник
+    echo is_leap_year(2004) . PHP_EOL; // Задача 12. Високосный год
+    echo sign(56) . PHP_EOL; // Задача 13. Знак
+    echo long_straw(6,14,7) .  PHP_EOL; // Задача 14. Длинная соломинка
+    echo today_is_cold(-31) . PHP_EOL; // Задача 15. Сегодня холодно
+    var_dump(chocolate(3,4,2)) . PHP_EOL; // Задача 17. Шоколадка
+    echo weekend2(4,5) . PHP_EOL; // Задача 18. Выходной2
