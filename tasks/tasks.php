@@ -138,78 +138,32 @@
 	}
 	
 	// Задача 7. Авторизация
-	function formForAuthorization(): string
+	function checkAuthorization($login, $password, $true_login, $true_Password): void
 	{
-		return '<!DOCTYPE html>
-			<html lang="en">
-			<head>
-				<meta charset="UTF-8">
-        		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-       			<title>Форма входа</title>
-			</head>
-			<body>
-				<h2> Авторизация </h2>
-				<form method="POST">
-					<label for="firstname"> Введите логин </label><br>
-					<input type="text" id = "firstname" name = "firstname" required></input><br>
-					<label for="password"> Введите пароль </label><br>
-					<input type="text" id = "password" name = "password" required></input><br><br>
-					<input type="submit" value="Войти">
-				</form>
-			</body>
-		</html>';
-	}
-	
-	function forHeadPage($firstname): string
-	{
-		return '<!DOCTYPE html>
-			<html lang="en">
-			<head>
-				<meta charset="UTF-8">
-        		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-       			<title>Главная страница</title>
-			</head>
-			<body>
-				<h2>Добрый день' . $firstname . '</h2>
-				<a href = "index.php?action=logout">
-					<button type="button" value="Выйти">Выйти</button>
-				</a>
-			</body>
-		</html>';
-	}
-	
-	function checkAuthorization($firstname, $password, $true_firstname, $truePassword): void
-	{
-		session_start();
-		if ($firstname == $true_firstname && $password == $truePassword) {
-			$_SESSION['firstname'] = $firstname;
+		if ($login == $true_login && $password == $true_Password) {
+			$_SESSION['login'] = $login;
 			$_SESSION['password'] = $password;
-			header('Location: http://127.0.0.1/index.php?action=main');
-			echo forHeadPage($firstname);
+			header("Location: index.php");
+			exit;
 		} else {
-			echo formForAuthorization();
-			echo 'Данные для входа неверны';
+			global $error;
+			$error = "Неправильный логин или пароль";
 		}
 	}
 	
-	function exitFromUser()
-	{
-		session_abort();
-		if (isset($_GET['action']) && $_GET['action'] == 'logout') {
-			unset($_SESSION['firstname']);
-			unset($_SESSION['password']);
-			echo formForAuthorization();
+	function checkLogout() : void {
+		if (isset($_POST["logout"])) {
+			session_unset();
+			session_destroy();
+			header("Location: auth.php");
+			exit;
 		}
 	}
-	
-	function switchPage()
-	{
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			checkAuthorization($_POST['firstname'], $_POST['password'], 123, 124);
-		} else {
-			echo formForAuthorization();
+	function checkEnterInSystem() : void {
+		if (!isset($_SESSION["login"])) {
+			header("Location: auth.php");
+			exit;
 		}
-		exitFromUser();
 	}
 	
 
