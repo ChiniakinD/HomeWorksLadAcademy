@@ -12,8 +12,9 @@
     <label for="login"> Введите логин </label><br>
     <input type="text" id="login" name="login" required></input><br>
     <label for="password"> Введите пароль </label><br>
-    <input type="password" id="password" name="password" required></input><br><br>
-    <input type="submit" value="Войти">
+    <input type="password" id="password" name="password" required></input><br>
+    <input type="submit" value="Войти"><br>
+    <label>Если аккаунт отсутствует, пройдите <a href = "/registration.php" >Регистрацию</a></label>
 </form>
 </body>
 </html>
