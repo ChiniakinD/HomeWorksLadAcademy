@@ -1,10 +1,14 @@
 <?php
+	namespace MyUser;
 	
-	namespace model\classes;
-	class User
+		class User
 	{
 		private string $login;
 		private string $password;
+		
+		public function __construct() {
+			$this->password = '';
+		}
 		
 		public function getLogin(): string
 		{
@@ -25,7 +29,7 @@
 		
 		public function setPassword(string $password): void
 		{
-			if ($this->password != null) {
+			if ($this->password === '') {
 				$this->password = $password;
 			}
 		}

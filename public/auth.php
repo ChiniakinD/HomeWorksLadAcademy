@@ -1,13 +1,19 @@
 <?php
 	
-	use service\UserService;
+	use controller\UserController;
+	use php\SessionManager;
+	require_once "../src/controller/UserController.php";
+	require_once "../src/php/SessionManager.php";
 	
-	require_once '../src/php/service/UserService.php';
-	
-	session_start();
-	$service = UserService::getInstance();
-	if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login']) && isset($_POST['password'])) {
-		$service->checkAuthorization($_POST['login'], $_POST['password']);
+	$controller = UserController::getInstance();
+	if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+		if ($controller->checkAuthorization(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['password']))) {
+			$session = new SessionManager();
+			$session->set('login',htmlspecialchars( $_POST['login']));
+			header('Location: index.php');
+			//exit;
+		}
 	}
 
 ?>

@@ -1,11 +1,19 @@
 <?php
 	
 	namespace service;
-	require_once '../public/auth.php';
+	
 	
 	class UserService
 	{
-		const PATH_TO_DATABASE = "C:\Users\Чиня\PhpstormProjects\HomeWorksLadAcademy\db\user.json";
+		
+		
+		/*
+		 * public function checkAuthorization($login, $password) : bool {
+		 *      $db = new DataBase();
+		 *      достаю юзера с логином и паролем и сравниваю
+		 *      return $db->
+		 */
+		/*
 		private static ?UserService $instance = null;
 		
 		private function __construct()
@@ -20,38 +28,10 @@
 			return self::$instance;
 		}
 		
-		public static function isUserExistInDataBase(string $login): bool
-		{
-			$dataJson = self::getJsonByArray();
-			foreach ($dataJson as $element) {
-				if ($element['login'] == $login) {
-					return true;
-				}
-			}
-			global $error;
-			$error = "Пользователя с таким логином не существует";
-			return false;
-		}
-		
-		private function saveUserToDataBase(array $userData): void
-		{
-			$jsonData = json_encode($userData, JSON_PRETTY_PRINT);
-			file_put_contents("../db/user.json", $jsonData);
-		}
-		
-		public function createNewUser(string $login, string $password): void
-		{
-			if (!$this->isUserExistInDataBase()) {
-				$array = array($login, $password);
-				$this->saveUserToDataBase($array);
-			} else {
-				echo 'Пользователь с таким логином уже существует';
-			}
-		}
-		
 		public function checkAuthorization($login, $password): void
 		{
-			if ($this->isUserExistInDataBase($login)) {
+			$dataBase = \DataBase::getInstance();
+			if ($dataBase->isUserExistInDataBase($login)) {
 				$jsonData = file_get_contents(self::PATH_TO_DATABASE);
 				$users = json_decode($jsonData, true);
 				foreach ($users as $user) {
@@ -109,12 +89,7 @@
 			
 			}
 		}
-		
-		private static function getJsonByArray(): array
-		{
-			$jsonData = file_get_contents(self::PATH_TO_DATABASE);
-			return json_decode($jsonData, true);
-		}
+		*/
 		
 	}
 	

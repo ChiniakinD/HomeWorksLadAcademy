@@ -1,11 +1,11 @@
 <?php
-	require_once '../src/php/service/UserService.php';
 	
-	use \service\UserService;
+	use controller\UserController;
+	require_once "../src/controller/UserController.php";
 	
-	$service = UserService:: getInstance();
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		$service->registration();
+	$controller = UserController::getInstance();
+	if ($_SERVER["REQUEST_METHOD"] === "POST") {
+		$controller->registration();
 	}
-//?>
+?>
 <?php include 'htmlcodes/registrationForm.php';
