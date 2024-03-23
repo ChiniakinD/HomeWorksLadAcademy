@@ -7,7 +7,6 @@
 </head>
 <body>
 <h2> Авторизация </h2>
-<?php if (isset($error)) echo "<p>$error</p>"; ?>
 <form method="post">
     <label for="login"> Введите логин </label><br>
     <input type="text" id="login" name="login" required></input><br>

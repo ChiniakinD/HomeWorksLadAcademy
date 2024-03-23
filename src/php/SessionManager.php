@@ -1,15 +1,15 @@
 <?php
 	
-	namespace php;
+	namespace sessionManager;
 	
 	class SessionManager
 	{
-		public function __construct(){
+		public function __construct() {
+		
+		}
+		public function getSession() : void {
 			session_start();
 		}
-//		public function getSession() : void {
-//			session_start();
-//		}
 		public function set(string $key, $value) : void {
 			$_SESSION[$key] = $value;
 		}

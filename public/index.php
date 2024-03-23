@@ -1,15 +1,13 @@
 <?php
-	
 	use controller\UserController;
-	require_once "../src/controller/UserController.php";
-	use php\SessionManager;
-	require_once "../src/php/SessionManager.php";
+	use sessionManager\SessionManager;
+	require_once '../src/php/SessionManager.php';
+	require_once '../src/controller/UserController.php';
 	
-	$controller = UserController::getInstance();
 //	$sessionManager = new SessionManager();
 //	$sessionManager->getSession();
-	$session = new SessionManager();
-	$controller->checkEnterInSystem();
+	$controller = UserController::getInstance();
+	$controller->isLogInSystem();
 	$controller->checkLogout();
 ?>
 

@@ -7,7 +7,6 @@
 		private string $password;
 		
 		public function __construct() {
-			$this->password = '';
 		}
 		
 		public function getLogin(): string
@@ -17,9 +16,7 @@
 		
 		public function setLogin(string $login): void
 		{
-			if ($login != null) {
-				$this->login = $login;
-			}
+			$this->login = $login;
 		}
 		
 		public function getPassword(): string
@@ -29,8 +26,6 @@
 		
 		public function setPassword(string $password): void
 		{
-			if ($this->password === '') {
-				$this->password = $password;
-			}
+			$this->password = $password;
 		}
 	}

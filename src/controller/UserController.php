@@ -2,9 +2,13 @@
 	
 	namespace controller;
 	
-	require_once __DIR__ . "/../php/DataBase.php";
+	use service\UserService;
+	use sessionManager\SessionManager;
 
-	use DataBase;
+//	require_once "../php/SessionManager.php";
+//	require_once '../php/service/UserService.php';
+	require_once "C:\Users\Чиня\PhpstormProjects\HomeWorksLadAcademy\src\php\service\UserService.php";
+	
 	
 	class UserController
 	{
@@ -20,31 +24,20 @@
 				self::$instance = new UserController();
 			}
 			return self::$instance;
+			
 		}
 		
-		public function checkAuthorization($login, $password): bool
+		public function isAuthorizationSuccessful($login, $password): bool
 		{
-			// $userService = new UserService()
-			// return $userService->checkAuthorization($login,$password)
-			$dataBase = DataBase::getInstance();
-			if ($dataBase->isUserExistInDataBase($login)) {
-				$user = $dataBase->getUserByLogin($login);
-				if ($user->getLogin() === $login && $user->getPassword() === $password) {
-					return true;
-				} else {
-					global $error;
-					$error = "Неправильный пароль";
-					return false;
-				}
-			}
-			global $error;
-			$error = "Пользователя с таким логином не существует";
-			return false;
+			$userService = new UserService();
+			return $userService->checkAuthorization($login, $password);
 		}
 		
 		function checkLogout(): void
 		{
 			if (isset($_POST["logout"])) {
+				$session = new SessionManager();
+				$session->getSession();
 				session_unset();
 				session_destroy();
 				header("Location: auth.php");
@@ -52,26 +45,39 @@
 			}
 		}
 		
-		public function checkEnterInSystem(): void
+		public function isLogInSystem(): void
 		{
-			if (!isset($_SESSION['login'])) {
+			$session = new SessionManager();
+			$session->getSession();
+			if ($session->get('login') != null) {
 				header("Location: auth.php");
 				exit;
 			}
+//
+//			if (!isset($_SESSION['login'])) {
+//				header("Location: auth.php");
+//				exit;
+//			}
 		}
 		
-		public function confirmPassword(): bool
+		private function confirmPassword(): bool
 		{
-			if ($_POST['password'] != $_POST['check_password']) {
-				global $error;
-				$error = 'Пароли не совпадают';
+			try {
+				if ($_POST['password'] != $_POST['check_password']) {
+					throw new \Exception("Некорректное подтверждение пароля");
+				}
+			} catch (\Exception $e) {
+				echo $e->getMessage();
+				return false;
 			}
-			return $_POST['password'] === $_POST['check_password'];
+			return true;
 		}
 		
-		public function registration(): void
+		public function registration($login, $password): void
 		{
-			$db = DataBase::getInstance();
-			$db->addNewUserToDataBase(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['password']));
+			if ($this->confirmPassword()) {
+				$service = UserService::getInstance();
+				$service->registration($login, $password);
+			}
 		}
 	}
