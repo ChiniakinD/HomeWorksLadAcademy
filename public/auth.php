@@ -9,7 +9,7 @@
 	if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 		if ($controller->isAuthorizationSuccessful(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['password']))) {
-			$session = new SessionManager();
+			$session = SessionManager::getInstance();
 			$session->set('login',htmlspecialchars( $_POST['login']));
 			header('Location: index.php');
 			//exit;

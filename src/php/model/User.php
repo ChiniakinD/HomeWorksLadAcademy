@@ -1,12 +1,14 @@
 <?php
+	
 	namespace MyUser;
 	
-		class User
+	class User
 	{
-		private string $login;
-		private string $password;
+		private string $login = '';
+		private string $password = '';
 		
-		public function __construct() {
+		public function __construct()
+		{
 		}
 		
 		public function getLogin(): string

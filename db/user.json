@@ -62,5 +62,13 @@
   {
     "login": "67",
     "password": "67"
+  },
+  {
+    "login": "666",
+    "password": "666"
+  },
+  {
+    "login": "user1231",
+    "password": "1"
   }
 ]

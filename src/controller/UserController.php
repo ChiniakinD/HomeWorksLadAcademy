@@ -36,8 +36,9 @@
 		function checkLogout(): void
 		{
 			if (isset($_POST["logout"])) {
-				$session = new SessionManager();
-				$session->getSession();
+				$session = SessionManager::getInstance();
+//				$session = new SessionManager();
+//				$session->getSession();
 				session_unset();
 				session_destroy();
 				header("Location: auth.php");
@@ -47,9 +48,10 @@
 		
 		public function isLogInSystem(): void
 		{
-			$session = new SessionManager();
-			$session->getSession();
-			if ($session->get('login') != null) {
+			$session = SessionManager::getInstance();
+//			$session = new SessionManager();
+//			$session->getSession();
+			if (!$session->isKeyExist('login')) {
 				header("Location: auth.php");
 				exit;
 			}
@@ -57,7 +59,7 @@
 //			if (!isset($_SESSION['login'])) {
 //				header("Location: auth.php");
 //				exit;
-//			}
+		//	}
 		}
 		
 		private function confirmPassword(): bool

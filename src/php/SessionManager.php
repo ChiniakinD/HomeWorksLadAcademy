@@ -4,11 +4,16 @@
 	
 	class SessionManager
 	{
-		public function __construct() {
+		private static ?SessionManager $instance = null;
+		private function __construct() {
 		
 		}
-		public function getSession() : void {
-			session_start();
+		public static function getInstance() : SessionManager {
+			if (self::$instance === null) {
+				self::$instance = new SessionManager();
+				session_start();
+			}
+			return self::$instance;
 		}
 		public function set(string $key, $value) : void {
 			$_SESSION[$key] = $value;
@@ -24,4 +29,7 @@
 		public function destroy() : void {
 			session_destroy();
 		}
-	}
+		public function isKeyExist($key) : bool {
+			return isset($_SESSION[$key]);
+		}
+ 	}
